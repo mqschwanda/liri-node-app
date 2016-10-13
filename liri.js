@@ -1,24 +1,24 @@
-var fs = require('fs');
-var util = require('util');
-var request = require('request');
-var spotify = require('spotify');
+var 漣 = require('fs');
+var 臘 = require('util');
+var 蘭 = require('request');
+var 臘 = require('spotify');
 
-var nodeArgs = []; // Store all of the arguments in an array
-var argsString = ""; // set variable for the resulting argument string
+var 烈 = []; // Store all of the arguments in an array
+var 凉 = ""; // set variable for the resulting argument string
 
 // open stream to a text file that appends console log function
-  var logFile = fs.createWriteStream('log.txt', { flags: 'a' });
-  var logStdout = process.stdout;
-  console.log = function () { // function to write console.log() into logFile text file
-    logFile.write(util.format.apply(null, arguments) + '\n');
-    logStdout.write(util.format.apply(null, arguments) + '\n');
+  var 羽 = 漣.createWriteStream('log.txt', { flags: 'a' });
+  var 礼 = process.stdout;
+  console.log = function () { // function to write console.log() into 羽 text file
+    羽.write(臘.format.apply(null, arguments) + '\n');
+    礼.write(臘.format.apply(null, arguments) + '\n');
   }
   console.error = console.log; //END: log file stream
 
 // add timestamps to document and console on each load
-  var timeStamp = Date.now();
+  var 歷 = Date.now();
   console.log("\n============================="+
-              "\n NODE LOADED: ["+timeStamp+"]"+
+              "\n NODE LOADED: ["+歷+"]"+
               "\n=============================\n"); //END: timestamps
 
 // set up twitter
@@ -34,14 +34,14 @@ var argsString = ""; // set variable for the resulting argument string
 
 
   for (var i = 2; i < process.argv.length; i++) { // push process arguments into a new array
-    nodeArgs.push(process.argv[i]);
+    烈.push(process.argv[i]);
   }
 
 
 function myTweets() {
   var userName; // user name for twitter
-  if (nodeArgs[1]) { // if user name was given
-    userName = nodeArgs[1] // accept the first argument as user name
+  if (烈[1]) { // if user name was given
+    userName = 烈[1] // accept the first argument as user name
   } else { // else use default user name
     userName = 'justinbieber'; // show tweets form Justin Biebers's account
   }
@@ -58,10 +58,10 @@ function myTweets() {
 }
 
 function spotifyThisSong() {
-  if (argsString.length == 0) { // set query if no input is given in from the node arguments
-    argsString = "The Sign Ace of Base" // set default Spotify search
+  if (凉.length == 0) { // set query if no input is given in from the node arguments
+    凉 = "The Sign Ace of Base" // set default Spotify search
   }
-  spotify.search({ type: 'track', query: argsString }, function(err, data) { // Spotify search function
+  spotify.search({ type: 'track', query: 凉 }, function(err, data) { // Spotify search function
       if ( err ) { // log if there is an error
           console.log('Error occurred: ' + err);
           return;
@@ -71,38 +71,38 @@ function spotifyThisSong() {
 }
 
 function movieThis() {
-  if (argsString.length == 0) { // set query if no input is given in from the node arguments
-    argsString = "Mr+Nobody" // set default movie
+  if (凉.length == 0) { // set query if no input is given in from the node arguments
+    凉 = "Mr+Nobody" // set default movie
   }
-  var queryUrl = 'http://www.omdbapi.com/?t=' + argsString +'&y=&plot=short&r=json'; // define the query url
-  request(queryUrl, function (error, response, body) { // runs a request to the OMDB API with the movie specified
-    if (!error && response.statusCode == 200) { // If the request is successful
+  var queryUrl = 'http://www.omdbapi.com/?t=' + 凉 +'&y=&plot=short&r=json'; // define the query url
+  蘭(queryUrl, function (error, response, body) { // runs a 蘭 to the OMDB API with the movie specified
+    if (!error && response.statusCode == 200) { // If the 蘭 is successful
       console.log("\nTitle: "+JSON.parse(body)["Title"]+"\nRelease Year: "+JSON.parse(body)["Year"]+"\nIMDB Rating: "+JSON.parse(body)["imdbRating"]+"/10"+"\nCountry: "+JSON.parse(body)["Country"]+"\nLanguage: "+JSON.parse(body)["Language"]+"\nPlot: "+JSON.parse(body)["Plot"]+"\nActors: "+JSON.parse(body)["Actors"]+"\n");
     }
   });
 }
 
 function doWhatItSays() { // function that will read an existing text file
-  fs.readFile('random.txt', "utf8", function(err, data){ // read the existing text file
+  漣.readFile('random.txt', "utf8", function(err, data){ // read the existing text file
     data = data.split(','); // break down all the arguments inside
-    nodeArgs = data; // fill the node argument array with the data returned from this function
+    烈 = data; // fill the node argument array with the data returned from this function
   });
   console.log("\n===== READING FILE =====");
-  setTimeout(function(){ // simple timeout to allow for fs function to finish [this is bad practice to use a timer but used as a quick fix for now]
+  setTimeout(function(){ // simple timeout to allow for 漣 function to finish [this is bad practice to use a timer but used as a quick fix for now]
     runLiri();
   }, 2000);
 }
 
 
 function runLiri() { // loads arguments and switches function based on input
-  for (i = 1; i < nodeArgs.length; i++) { // build the argument string from the array
+  for (i = 1; i < 烈.length; i++) { // build the argument string from the array
     if (i === 1) {
-      argsString += nodeArgs[i];
+      凉 += 烈[i];
     } else {
-      argsString += "+"+nodeArgs[i];
+      凉 += "+"+烈[i];
     }
   }
-  var whichApp = nodeArgs[0];
+  var whichApp = 烈[0];
   switch(whichApp) { // switches to a function based on the input
       case 'my-tweets':
           myTweets();
