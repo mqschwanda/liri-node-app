@@ -17,7 +17,9 @@ var argsString = ""; // set variable for the resulting argument string
 
 // add timestamps to document and console on each load
   var timeStamp = Date.now();
-  console.log("NODE LOADED: ["+timeStamp+"]"); //END: timestamps
+  console.log("\n============================="+
+              "\n NODE LOADED: ["+timeStamp+"]"+
+              "\n=============================\n"); //END: timestamps
 
 // set up twitter
   var Twitter = require('twitter');
@@ -47,8 +49,7 @@ function myTweets() {
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) { // if there is no error
       for (var i = 0; i < tweets.length && i < 20; i++) { // log the most recent tweets with a limit of 20
-        console.log ("---------- "+tweets[i].created_at+" ----------"); // time stamp for tweet console log
-        console.log (tweets[i].user.name+": "+tweets[i].text);
+        console.log ("\n========== "+tweets[i].created_at+" ==========\n"+tweets[i].user.name+":\n"+tweets[i].text);
       }
     } else { // else log the error
       console.log(error);
@@ -65,10 +66,7 @@ function spotifyThisSong() {
           console.log('Error occurred: ' + err);
           return;
       }
-      console.log("Title: "+data.tracks.items[0].name);
-      console.log("Artist: "+data.tracks.items[0].artists[0].name);
-      console.log("Preview: "+data.tracks.items[0].preview_url);
-      console.log("Album: "+data.tracks.items[0].album.name);
+      console.log("\nTitle: "+data.tracks.items[0].name+"\nArtist: "+data.tracks.items[0].artists[0].name+"\nPreview: "+data.tracks.items[0].preview_url+"\nAlbum: "+data.tracks.items[0].album.name+"\n");
   });
 }
 
@@ -79,13 +77,7 @@ function movieThis() {
   var queryUrl = 'http://www.omdbapi.com/?t=' + argsString +'&y=&plot=short&r=json'; // define the query url
   request(queryUrl, function (error, response, body) { // runs a request to the OMDB API with the movie specified
     if (!error && response.statusCode == 200) { // If the request is successful
-      console.log("Title: " + JSON.parse(body)["Title"]);
-      console.log("Release Year: " + JSON.parse(body)["Year"]);
-      console.log("IMDB Rating: " + JSON.parse(body)["imdbRating"]);
-      console.log("Country: " + JSON.parse(body)["Country"]);
-      console.log("Language: " + JSON.parse(body)["Language"]);
-      console.log("Plot: " + JSON.parse(body)["Plot"]);
-      console.log("Actors: " + JSON.parse(body)["Actors"]);
+      console.log("\nTitle: "+JSON.parse(body)["Title"]+"\nRelease Year: "+JSON.parse(body)["Year"]+"\nIMDB Rating: "+JSON.parse(body)["imdbRating"]+"/10"+"\nCountry: "+JSON.parse(body)["Country"]+"\nLanguage: "+JSON.parse(body)["Language"]+"\nPlot: "+JSON.parse(body)["Plot"]+"\nActors: "+JSON.parse(body)["Actors"]+"\n");
     }
   });
 }
@@ -95,7 +87,7 @@ function doWhatItSays() { // function that will read an existing text file
     data = data.split(','); // break down all the arguments inside
     nodeArgs = data; // fill the node argument array with the data returned from this function
   });
-  console.log("----- READING FILE -----");
+  console.log("\n===== READING FILE =====");
   setTimeout(function(){ // simple timeout to allow for fs function to finish [this is bad practice to use a timer but used as a quick fix for now]
     runLiri();
   }, 2000);
@@ -125,7 +117,7 @@ function runLiri() { // loads arguments and switches function based on input
           doWhatItSays();
           break;
       default:
-          console.log("ERROR: This is not a supported function!");
+          console.log("\n========================================"+"\nERROR: THIS IS NOT A SUPPORTED FUNCTION!"+"\n========================================\n");
   }
 }
 
